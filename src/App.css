@@ -14,14 +14,15 @@
 }
 
 .App-header {
-  background-color: #282c34;
+  background-color: #FFFFFF;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  font-family: 'Rosario Light', sans-serif;
+  color: #E363AA;
+  text-decoration: none;
 }
 
 .App-link {
@@ -36,3 +37,50 @@
     transform: rotate(360deg);
   }
 }
+
+@font-face {
+  font-family: 'Rosario Light';
+  src: url('../public/assets/fonts/Rosario\ Light.ttf') format('truetype');
+}
+
+.rosarioFont {
+  font-family: 'Rosario Light', sans-serif;
+}
+
+.button {
+  font-size: 24px;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(to bottom, #E363AA, #EDBBBA);
+  color: #FFFFFF;
+  text-shadow: 0px 1px 1px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+  font-family: 'Rosario Light', sans-serif;
+  text-decoration: none;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to bottom, #e22eb8, #eb94d4);
+}
+
+.App-body {
+  background-color: #FFFFFF;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Rosario Light', sans-serif;
+}
+
+.App-header ol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
