@@ -1,4 +1,4 @@
-[
+const riddles = [
 	{
 		"id": "0",
 		"question": "Which letter of the alphabet has the most water?",
@@ -535,3 +535,5 @@
         "answer": "One has claws at the end of its paws, and the other is a pause at the end of a clause."
     }
 ]
+
+export {riddles}
