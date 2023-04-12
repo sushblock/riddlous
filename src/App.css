@@ -25,6 +25,7 @@
   text-decoration: none;
 }
 
+
 .App-link {
   color: #61dafb;
 }
@@ -38,6 +39,7 @@
   }
 }
 
+/* defininig the brand theme font */
 @font-face {
   font-family: 'Rosario Light';
   src: url('../public/assets/fonts/Rosario\ Light.ttf') format('truetype');
@@ -67,16 +69,6 @@
   background: linear-gradient(to bottom, #e22eb8, #eb94d4);
 }
 
-.App-body {
-  background-color: #FFFFFF;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-family: 'Rosario Light', sans-serif;
-}
-
 .App-header ol {
   display: flex;
   flex-direction: column;
@@ -85,6 +77,10 @@
 .justVerticalPadding {
   padding-bottom: 20px;
 }
+.verticalPaddingTop {
+  padding: 20px;
+}
+
 
 .timer {
   font-size: 30px;
@@ -97,9 +93,9 @@
   background: linear-gradient(to bottom, #9e3c72, #c76c6a);
   color: #FFFFFF;  
   transition: all 0.2s ease-in-out;
-  cursor: pointer;
   font-family: 'Rosario Light', sans-serif;
   text-decoration: none;
+  text-align: center;
   animation: flash 1s infinite;
 }
 

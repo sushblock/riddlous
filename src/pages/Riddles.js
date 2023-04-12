@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { riddles } from "../assets/riddle_data";
 import Wow from "../assets/Wow.webp";
+import { button_tags } from "../constants/properties";
 
 const Riddles = () => {
   const [questions, setQuestions] = useState([]);
@@ -25,8 +26,7 @@ const Riddles = () => {
     }, 10000);
 
     // Clear timer if component unmounts or user moves to next question
-    return () => clearTimeout(timer);    
-
+    return () => clearTimeout(timer);
   }, [currentQuestionIndex]);
 
   useEffect(() => {
@@ -39,12 +39,15 @@ const Riddles = () => {
     return () => {
       clearInterval(timerClock);
     };
-  },[currentQuestionIndex]);
+  }, [currentQuestionIndex]);
 
   useEffect(() => {
     // Save currentQuestionIndex to local storage when the user closes the app
     window.addEventListener("beforeunload", () => {
-      localStorage.setItem("currentQuestionIndex", JSON.stringify(currentQuestionIndex));
+      localStorage.setItem(
+        "currentQuestionIndex",
+        JSON.stringify(currentQuestionIndex)
+      );
     });
   }, [currentQuestionIndex]);
 
@@ -57,35 +60,40 @@ const Riddles = () => {
   }, []);
 
   const handleNextQuestion = () => {
-    setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    if (currentQuestionIndex < questions.length - 1)
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
 
+  const handlePrevQuestion = () => {
+    if (currentQuestionIndex > 0)
+      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+  };
   return (
     <div className="App-header">
       <h1>{currentQuestion?.question}</h1>
-      {showAnswer && <p>{currentQuestion?.answer}</p>}
+      {showAnswer && <h2>{currentQuestion?.answer}</h2>}
       {showAnswer ? (
         <img src={Wow} alt="Ohh My God" />
       ) : (
-        <div className="justVerticalPadding">          
-          <button onClick={() => setShowAnswer(true)} className="button">
-            Show Answer
-          </button>
-        </div>
-      )}
-      {currentQuestionIndex < questions.length - 1 && (
-        <div>
-          <button onClick={handleNextQuestion} className="button">
-            Next
-          </button>
+        <>
           {countdown > 0 && <p className="timer">{countdown}</p>}
-        </div>
+          <button onClick={() => setShowAnswer(true)} className="button">
+            {button_tags.show}
+          </button>
+        </>
       )}
+      <div className="verticalPaddingTop">
+        <button onClick={handlePrevQuestion} className="button">
+          {button_tags.prev}
+        </button>
+        <button onClick={handleNextQuestion} className="button">
+          {button_tags.next}
+        </button>
+      </div>
     </div>
   );
 };
 
 export default Riddles;
-  
