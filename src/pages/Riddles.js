@@ -6,6 +6,7 @@ const Riddles = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
+  const [countdown, setCountdown] = useState(10);
 
   useEffect(() => {
     // Load questions from JSON file or API and set the state
@@ -24,8 +25,21 @@ const Riddles = () => {
     }, 10000);
 
     // Clear timer if component unmounts or user moves to next question
-    return () => clearTimeout(timer);
+    return () => clearTimeout(timer);    
+
   }, [currentQuestionIndex]);
+
+  useEffect(() => {
+    setCountdown(10);
+    const timerClock = setInterval(() => {
+      setCountdown((prevCountdown) => prevCountdown - 1);
+    }, 1000);
+
+    // Clear timer if component unmounts or user moves to next question
+    return () => {
+      clearInterval(timerClock);
+    };
+  },[currentQuestionIndex]);
 
   useEffect(() => {
     // Save currentQuestionIndex to local storage when the user closes the app
@@ -55,7 +69,7 @@ const Riddles = () => {
       {showAnswer ? (
         <img src={Wow} alt="Ohh My God" />
       ) : (
-        <div className="justVerticalPadding">
+        <div className="justVerticalPadding">          
           <button onClick={() => setShowAnswer(true)} className="button">
             Show Answer
           </button>
@@ -66,6 +80,7 @@ const Riddles = () => {
           <button onClick={handleNextQuestion} className="button">
             Next
           </button>
+          {countdown > 0 && <p className="timer">{countdown}</p>}
         </div>
       )}
     </div>
