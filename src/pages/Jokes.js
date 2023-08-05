@@ -1,5 +1,4 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
-import { button_tags } from "../constants/properties";
 import { loadCategories } from "../utils/categoryUtils";
 import wockaJokes from "../assets/wocka.json";
 import stupidstuffJokes from "../assets/stupidstuff.json";
