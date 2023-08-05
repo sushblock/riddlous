@@ -10,13 +10,16 @@ const RedditJokes = lazy(() => import("../components/RedditJokes"));
 const Jokes = () => {
   const [wockaJokeIndex, setWockaJokeIndex] = useState(0);
   const [stupidstuffJokeIndex, setStupidstuffJokeIndex] = useState(0);
-  const [redditJokeIndex, setRedditJokeIndex] = useState(0);
+  const [redditJokeIndex, setRedditJokeIndex] = useState(0);  
   const [currentCategory, setCurrentCategory] = useState("wocka");
   const [categories, setCategories] = useState({
     wocka: [],
     stupidstuff: [],
     reddit: [],
   });
+
+  const [wockaFileIndex, setWockaFileIndex] = useState(1);
+  const [redditFileIndex, setRedditFileIndex] = useState(1);
 
   useEffect(() => {
     // Load categories from local storage or JSON files
@@ -35,19 +38,13 @@ const Jokes = () => {
     setRedditJokeIndex(0);
   }, [categories]);
 
-  const handleNextWockaJoke = () => {
-    if (wockaJokeIndex < categories.wocka.length - 1) {
-      setWockaJokeIndex((prevIndex) => prevIndex + 1);
-    } else {
-      const loadNextJokes = async () => {
-        const nextJokes = await getNextWockaJokes(wockaJokeIndex);
-        if (nextJokes.length > 0) {
-          setWockaJokeIndex((prevIndex) => prevIndex + 1);
-        }
-      };
-      loadNextJokes();
-    }
+  const handleNextWockaJoke = async () => {
+    const { nextIndex, fileIndex } = await getNextWockaJokes(wockaFileIndex, wockaJokeIndex);
+    setWockaFileIndex(fileIndex);
+    setWockaJokeIndex(nextIndex);
+    // Process the jokes as needed...
   };
+  
 
   const handlePrevWockaJoke = () => {
     if (wockaJokeIndex > 0) {
@@ -76,14 +73,9 @@ const Jokes = () => {
   };
 
   const handleNextRedditJoke = async () => {
-    if (categories.reddit && redditJokeIndex < categories.reddit.length - 1) {
-      setRedditJokeIndex((prevIndex) => prevIndex + 1);
-    } else {
-      const nextJokes = await getNextRedditJokes(redditJokeIndex);
-      if (nextJokes.length > 0) {
-        setRedditJokeIndex((prevIndex) => prevIndex + 1);
-      }
-    }
+    const { nextIndex, fileIndex } = await getNextRedditJokes(redditFileIndex, redditJokeIndex);
+    setRedditFileIndex(fileIndex);
+    setRedditJokeIndex(nextIndex);
   };
 
   const handlePrevRedditJoke = () => {
