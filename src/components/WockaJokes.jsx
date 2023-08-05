@@ -1,10 +1,10 @@
 import React from "react";
-import wockaJokes from "../assets/wocka.json";
+import wockaJokes from "../assets/wocka/wocka_01.json"; // Load the first file
 import { button_tags } from "../constants/properties";
 
 const WockaJokes = ({ currentJokeIndex, handlePrevJoke, handleNextJoke, handleGoToStart }) => {
   const joke = wockaJokes[currentJokeIndex];
-  
+
   return (
     <>
       {/* Display current joke */}

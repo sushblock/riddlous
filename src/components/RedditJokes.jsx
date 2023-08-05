@@ -1,10 +1,10 @@
 import React from "react";
-import redditJokes from "../assets/reddit_jokes.json";
+import redditJokes from "../assets/reddit_jokes/reddit_jokes_01.json"; // Load the first file
 import { button_tags } from "../constants/properties";
 
 const RedditJokes = ({ currentJokeIndex, handlePrevJoke, handleNextJoke, handleGoToStart }) => {
   const joke = redditJokes[currentJokeIndex];
-  
+
   return (
     <>
       {/* Display current joke */}

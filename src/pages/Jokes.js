@@ -1,8 +1,6 @@
 import React, { useState, useEffect, lazy, Suspense } from "react";
 import { loadCategories } from "../utils/categoryUtils";
-import wockaJokes from "../assets/wocka.json";
-import stupidstuffJokes from "../assets/stupidstuff.json";
-import redditJokes from "../assets/reddit_jokes.json";
+import { getNextWockaJokes, getNextRedditJokes } from "../utils/jokeUtils";
 import "../styles/Jokes.css"; // Import the CSS file for styling
 
 const WockaJokes = lazy(() => import("../components/WockaJokes"));
@@ -17,6 +15,7 @@ const Jokes = () => {
   const [categories, setCategories] = useState({
     wocka: [],
     stupidstuff: [],
+    reddit: [],
   });
 
   useEffect(() => {
@@ -37,8 +36,16 @@ const Jokes = () => {
   }, [categories]);
 
   const handleNextWockaJoke = () => {
-    if (wockaJokeIndex < wockaJokes.length - 1) {
+    if (wockaJokeIndex < categories.wocka.length - 1) {
       setWockaJokeIndex((prevIndex) => prevIndex + 1);
+    } else {
+      const loadNextJokes = async () => {
+        const nextJokes = await getNextWockaJokes(wockaJokeIndex);
+        if (nextJokes.length > 0) {
+          setWockaJokeIndex((prevIndex) => prevIndex + 1);
+        }
+      };
+      loadNextJokes();
     }
   };
 
@@ -53,7 +60,7 @@ const Jokes = () => {
   };
 
   const handleNextStupidstuffJoke = () => {
-    if (stupidstuffJokeIndex < stupidstuffJokes.length - 1) {
+    if (stupidstuffJokeIndex < categories.stupidstuff.length - 1) {
       setStupidstuffJokeIndex((prevIndex) => prevIndex + 1);
     }
   };
@@ -68,9 +75,14 @@ const Jokes = () => {
     setStupidstuffJokeIndex(0);
   };
 
-  const handleNextRedditJoke = () => {
-    if (redditJokeIndex < redditJokes.length - 1) {
+  const handleNextRedditJoke = async () => {
+    if (categories.reddit && redditJokeIndex < categories.reddit.length - 1) {
       setRedditJokeIndex((prevIndex) => prevIndex + 1);
+    } else {
+      const nextJokes = await getNextRedditJokes(redditJokeIndex);
+      if (nextJokes.length > 0) {
+        setRedditJokeIndex((prevIndex) => prevIndex + 1);
+      }
     }
   };
 
