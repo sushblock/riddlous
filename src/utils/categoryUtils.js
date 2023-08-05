@@ -56,6 +56,6 @@ const loadCategories = async () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories));
     return categories;
   }
-};
+}; 
 
 export { loadCategories };
