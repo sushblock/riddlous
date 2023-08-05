@@ -1,3 +1,5 @@
+// src/utils/categoryUtils.js
+
 const LOCAL_STORAGE_KEY = "jokes_category";
 
 const loadCategories = async () => {
@@ -5,6 +7,7 @@ const loadCategories = async () => {
   if (storedCategories) {
     return JSON.parse(storedCategories);
   } else {
+    // Load the categories from the split files (wocka_jokes_01.json, wocka_jokes_02.json, etc.)
     const wockaCategoryPromises = [];
     let wockaPageIndex = 1;
     while (true) {
@@ -14,17 +17,19 @@ const loadCategories = async () => {
         wockaCategoryPromises.push(module.default);
         wockaPageIndex++;
       } catch (error) {
-        // No more split files to load for wocka
+        // No more split files to load
         break;
       }
     }
 
     const wockaJokes = (await Promise.all(wockaCategoryPromises)).flat();
-    const wockaCategories = [...new Set(wockaJokes.map((joke) => joke.category))];
 
+    // Load the categories from the main bulky file (stupidstuff.json)
     const stupidstuffJokes = require("../assets/stupidstuff.json");
+    const wockaCategories = [...new Set(wockaJokes.map((joke) => joke.category))];
     const stupidstuffCategories = [...new Set(stupidstuffJokes.map((joke) => joke.category))];
 
+    // Load the categories from the split files (reddit_jokes_01.json, reddit_jokes_02.json, etc.)
     const redditCategoryPromises = [];
     let redditPageIndex = 1;
     while (true) {
@@ -34,7 +39,7 @@ const loadCategories = async () => {
         redditCategoryPromises.push(module.default);
         redditPageIndex++;
       } catch (error) {
-        // No more split files to load for reddit_jokes
+        // No more split files to load
         break;
       }
     }
@@ -51,6 +56,6 @@ const loadCategories = async () => {
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(categories));
     return categories;
   }
-};
+}; 
 
 export { loadCategories };
