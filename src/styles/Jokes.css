@@ -5,6 +5,9 @@
     flex-direction: column;
     gap: 10px;
     margin: 10px;
+    max-width: 1000px;
+    justify-content: center;
+    align-items: center;    
   }
   
   .jokes-accordion {
@@ -12,7 +15,8 @@
     border-radius: 5px;
     padding: 10px;
     cursor: pointer;
-    background-color: #f9f9f9;
+    color: #fff;
+    background-color: #a01c1c;
     width: 90%;
     transition: background-color 0.2s ease;
   }
@@ -22,7 +26,7 @@
   }
   
   .jokes-accordion.active {
-    background-color: #aaf0aa; /* Change the background color for active accordion */
+    background-color: #933e7f; /* Change the background color for active accordion */
   }
   
   .accordion-header {
@@ -60,27 +64,12 @@
   /* Optional: Adjust font size for joke content */
   p {
     font-size: 16px;
+    color: #fafcfd;
   }
 
   /* styles/Jokes.css */
 
-/* Style the main container */
-.jokes-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-}
 
-/* Style the accordion header */
-.accordion-header {
-  cursor: pointer;
-  background-color: #f0f0f0;
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  text-align: center;
-}
 
 /* Style the selection dropdowns */
 select {
